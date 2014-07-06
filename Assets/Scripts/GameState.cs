@@ -9,6 +9,9 @@ public class GameState : MonoBehaviour
 		private Round
 				currentRound;
 		[SerializeField]
+		private int
+				roundPoints;
+		[SerializeField]
 		private Player
 				activePlayer;
 		[SerializeField]
@@ -35,6 +38,15 @@ public class GameState : MonoBehaviour
 		{
 				currentRound = Round.ROUND1;
 				gameState = State.IDLE;
+		}
+
+		public int RoundPoints { 
+				get {
+						return roundPoints;
+				} 
+				set {
+						roundPoints = value;
+				} 
 		}
 
 		public Round getCurrentRound ()
@@ -69,10 +81,20 @@ public class GameState : MonoBehaviour
 
 		public void resetGameState ()
 		{		
-				if (activePlayer != null) {
-						activePlayer.resetState ();
+				Round round = GameState.Instance.getCurrentRound ();
+				
+				if (round == Round.QUICKFIRE) {
+						GameState.Instance.setGameState (State.IDLE);
+						activePlayer.setPlayerState (State.LOCKED);
+				} else {
+						GameState.Instance.setGameState (State.IDLE);
+						if (activePlayer != null) {
+								activePlayer.resetState ();
+						}
 				}
-				GameState.Instance.setGameState (State.IDLE);
+
+				
+
 				GameState.Instance.setActivePlayer (null);
 				
 		}

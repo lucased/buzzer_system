@@ -31,7 +31,7 @@ public class GUIControl : MonoBehaviour
 						if (GameState.Instance.getActivtePlayer () != null) {
 								player = GameState.Instance.getActivtePlayer ();
 								playerScore = player.getPlayerScore ();
-								player.setPlayerScore (playerScore += 5);
+								player.setPlayerScore (playerScore += GameState.Instance.RoundPoints);
 								GameState.Instance.resetGameState ();
 								
 						}
@@ -42,9 +42,21 @@ public class GUIControl : MonoBehaviour
 				if (GUI.Button (new Rect (135, 30, 100, 30), "Incorrect")) {
 
 						if (GameState.Instance.getActivtePlayer () != null) {
+
+								Round round = GameState.Instance.getCurrentRound();
 								player = GameState.Instance.getActivtePlayer ();
 								playerScore = player.getPlayerScore ();
-								player.setPlayerScore (playerScore -= 5);
+
+								if(round != Round.QUICKFIRE) 
+								{
+									player.setPlayerScore (playerScore -= GameState.Instance.RoundPoints);
+								}
+								
+								if(round == Round.QUICKFIRE) 
+								{
+									player.setPlayerState(State.LOCKED);
+								}
+								
 								GameState.Instance.resetGameState ();
 
 						}
@@ -76,6 +88,7 @@ public class GUIControl : MonoBehaviour
 						curropt3 = false;
 						curropt4 = false;
 						GameState.Instance.setCurrentRound(Round.ROUND1);
+						GameState.Instance.RoundPoints = 5;
 				}
 	
 				if (GUI.Toggle (new Rect (135, 5, 100, 20), curropt2, new GUIContent ("Round 2"))) {
@@ -85,6 +98,7 @@ public class GUIControl : MonoBehaviour
 						curropt3 = false;
 						curropt4 = false;
 						GameState.Instance.setCurrentRound(Round.ROUND2);
+						GameState.Instance.RoundPoints = 5;
 				}
 
 				if (GUI.Toggle (new Rect (240, 5, 100, 20), curropt3, new GUIContent ("Round 3"))) {
@@ -94,6 +108,7 @@ public class GUIControl : MonoBehaviour
 						curropt2 = false;
 						curropt4 = false;
 						GameState.Instance.setCurrentRound(Round.ROUND3);
+						GameState.Instance.RoundPoints = 5;
 				}
 
 				if (GUI.Toggle (new Rect (345, 5, 100, 20), curropt4, new GUIContent ("Quick Fire"))) {
@@ -103,6 +118,7 @@ public class GUIControl : MonoBehaviour
 						curropt2 = false;
 						curropt4 = true;
 						GameState.Instance.setCurrentRound(Round.QUICKFIRE);
+						GameState.Instance.RoundPoints = 10;
 			
 				}
 		}

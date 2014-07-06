@@ -8,17 +8,10 @@ public class Rounds : MonoBehaviour {
 	[SerializeField]
 	private int roundPoints;
 
-	public Round getRound() {
-		return round;
-	}
+	public int Round { get; set;}
+	
 
-	public void setRound(Round r) {
-		round = r;
-	}
-
-	public int getRoundPoints() {
-		return roundPoints;
-	}
+	public int RoundPoints { get; set;}
 
 
 

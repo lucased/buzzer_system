@@ -44,6 +44,16 @@ public class Player : MonoBehaviour
 				playerState = State.IDLE;
 		}
 
+		public State getPlayerState ()
+		{
+				return playerState;
+		}
+
+		public void setPlayerState (State state)
+		{
+				playerState = state;
+		}
+
 		public int getPlayerScore ()
 		{
 				return playerScore;
@@ -63,4 +73,5 @@ public class Player : MonoBehaviour
 		{
 				playerName = name;
 		}
+	
 }
